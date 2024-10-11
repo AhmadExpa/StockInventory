@@ -7,35 +7,35 @@
 <div class="row mb-4">
   <div class="col-lg-6 col-sm-12">
     <div class="row">
-      <div class="col-6 col-md-3 mb-3">
+      <div class="col-6 mb-3">
         <div class="card stats-card">
           <div class="card-body text-center">
             <h5 class="card-title">Total Inventory</h5>
-            <p class="card-text">1302</p>
+            <p class="card-text">{{ totalInventory }}</p>
           </div>
         </div>
       </div>
-      <div class="col-6 col-md-3 mb-3">
+      <div class="col-6 mb-3">
         <div class="card stats-card">
           <div class="card-body text-center">
             <h5 class="card-title">Total Sales</h5>
-            <p class="card-text">$2000.00</p>
+            <p class="card-text">{{ totalSales }}</p>
           </div>
         </div>
       </div>
-      <div class="col-6 col-md-3 mb-3">
+      <div class="col-6 mb-3">
         <div class="card stats-card">
           <div class="card-body text-center">
             <h5 class="card-title">Pending Transfers</h5>
-            <p class="card-text">20</p>
+            <p class="card-text">{{ pendingRequests }}</p>
           </div>
         </div>
       </div>
-      <div class="col-6 col-md-3 mb-3">
+      <div class="col-6 mb-3">
         <div class="card stats-card">
           <div class="card-body text-center">
             <h5 class="card-title">Out of Stock</h5>
-            <p class="card-text">5</p>
+            <p class="card-text">{{ outOfStock }}</p>
           </div>
         </div>
       </div>
@@ -76,21 +76,23 @@
               <td>
                 <img
                   [src]="product.icon"
-                  alt="{{ product.name }}"
+                  alt="{{ product.productName }}"
                   class="product-icon"
                 />
               </td>
-              <td>{{ product.name }}</td>
+              <td>{{ product.productName }}</td>
               <td>{{ product.quantity }}</td>
             </tr>
             <tr *ngIf="product.showDetails" class="product-details">
               <td colspan="3">
-                <div><strong>Price:</strong> {{ product.price }}</div>
+                <div><strong>Price:</strong> {{ product.retailPrice }}</div>
                 <div>
-                  <strong>Recent Check-in:</strong> {{ product.checkIn }}
+                  <strong>Recent Check-in:</strong>
+                  {{ product.recentCheckInDate | date }}
                 </div>
                 <div>
-                  <strong>Recent Checkout:</strong> {{ product.checkOut }}
+                  <strong>Recent Checkout:</strong>
+                  {{ product.recentCheckOutDate | date }}
                 </div>
               </td>
             </tr>

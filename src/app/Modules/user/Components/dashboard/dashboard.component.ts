@@ -1,81 +1,78 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable'; // Importing autoTable
+import 'jspdf-autotable';
+import { GetProductService } from '../../Service/get-product.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent {
-  totalInventory = 100;
-  totalSales = 50;
-  pendingRequests = 10;
-  outOfStock = 5;
+export class DashboardComponent implements OnInit {
+  totalInventory = 0;
+  totalSales = 0;
+  pendingRequests = 0;
+  outOfStock = 0;
+  products: any[] = [];
 
-  products = [
-    {
-      id: 1,
-      icon: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-      name: 'Product 1',
-      price: 100,
-      quantity: 10,
-      checkIn: '2023-10-01',
-      checkOut: '2023-10-05',
-      showDetails: false,
-    },
-    {
-      id: 2,
-      icon: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
-      name: 'Product 2',
-      price: 150,
-      quantity: 5,
-      checkIn: '2023-10-02',
-      checkOut: '2023-10-06',
-      showDetails: false,
-    },
-  ];
+  constructor(private productService: GetProductService) { }
 
-  toggleDetails(product: any) {
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts().subscribe(
+      (data) => {
+        this.products = data;
+        this.calculateStatistics();
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+  }
+
+  calculateStatistics(): void {
+    this.totalInventory = this.products.length;
+    this.totalSales = this.products.reduce((acc, product) => acc + product.retailPrice * product.quantity, 0);
+    this.pendingRequests = this.products.filter(product => product.quantity < 1).length;
+    this.outOfStock = this.products.filter(product => product.quantity === 0).length;
+  }
+
+  toggleDetails(product: any): void {
     product.showDetails = !product.showDetails;
   }
 
-  downloadPDF() {
+  downloadPDF(): void {
     const pdf = new jsPDF('p', 'pt', 'a4');
+    const headers = [['ID', 'Product', 'Price', 'Quantity', 'Check-In Date', 'Check-Out Date']];
 
-    // Define table headers
-    const headers = [
-      ['ID', 'Product', 'Price', 'Quantity', 'Check-In Date', 'Check-Out Date'],
-    ];
-
-    // Define table data (product fields)
-    const data = this.products.map((product) => [
+    const data = this.products.map(product => [
       product.id,
-      product.name,
-      product.price,
+      product.productName,
+      product.retailPrice,
       product.quantity,
-      product.checkIn,
-      product.checkOut,
+      product.recentCheckInDate,
+      product.recentCheckOutDate,
     ]);
 
-    // Add title
     pdf.setFontSize(18);
     pdf.text('Inventory Report', 20, 30);
-
-    // Add table using autoTable
     (pdf as any).autoTable({
-      head: headers, // Set headers
-      body: data, // Set product data
-      startY: 50, // Start below the title
-      theme: 'grid', // Table styling
-      headStyles: { fillColor: [0, 57, 107] }, // Custom header style (Optional)
-      margin: { top: 50 }, // Adjust margin
+      head: headers,
+      body: data,
+      startY: 50,
+      theme: 'grid',
+      headStyles: { fillColor: [0, 57, 107] },
+      margin: { top: 50 },
     });
 
-    // Save the PDF
     pdf.save('inventory_report.pdf');
   }
-  report() {
-    console.log('Report Generate');
+
+  report(): void {
+    // Any specific report generation logic can go here
+    alert('Report a problem functionality is under development!');
   }
 }

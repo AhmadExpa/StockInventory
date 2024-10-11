@@ -1,0 +1,86 @@
+<!-- Hero Section -->
+<header class="hero-section mb-4">
+  <h3 class="hero-title">Employee Dashboard</h3>
+</header>
+
+<!-- Stock Table -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Product Icon</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let product of products">
+            <tr (click)="toggleDetails(product)">
+              <td>
+                <img
+                  [src]="product.icon"
+                  alt="{{ product.productName }}"
+                  class="product-icon"
+                />
+              </td>
+              <td>{{ product.productName }}</td>
+              <td>
+                {{ product.retailPrice }}
+              </td>
+              <td>
+                <button
+                  class="btn btn-sm btn-primary"
+                  (click)="editProduct(product)"
+                >
+                  {{ product.isEditing ? "Save" : "Edit" }}
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="product.showDetails" class="product-details">
+              <td>
+                <ng-container *ngIf="!product.isEditing; else editQuantity">
+                  {{ product.quantity }}
+                </ng-container>
+                <ng-template #editQuantity>
+                  <input
+                    type="number"
+                    [(ngModel)]="product.quantity"
+                    class="form-control"
+                  />
+                </ng-template>
+              </td>
+
+              <td>
+                <ng-container *ngIf="!product.isEditing; else editCheckInDate">
+                  {{ product.recentCheckInDate | date }}
+                </ng-container>
+                <ng-template #editCheckInDate>
+                  <input
+                    type="datetime-local"
+                    [(ngModel)]="product.recentCheckInDate"
+                    class="form-control"
+                  />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="!product.isEditing; else editCheckOutDate">
+                  {{ product.recentCheckOutDate | date }}
+                </ng-container>
+                <ng-template #editCheckOutDate>
+                  <input
+                    type="datetime-local"
+                    [(ngModel)]="product.recentCheckOutDate"
+                    class="form-control"
+                  />
+                </ng-template>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
