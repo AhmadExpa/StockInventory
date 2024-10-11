@@ -1,0 +1,220 @@
+<div class="auth-container">
+  <h2 class="text-center mb-4">Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+    <!-- First Name -->
+    <div class="form-group mb-3">
+      <label for="firstName" class="form-label">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        class="form-control"
+        formControlName="firstName"
+        (blur)="registerForm.controls['firstName'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['firstName'].touched &&
+            registerForm.controls['firstName'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          registerForm.controls['firstName'].touched &&
+          registerForm.controls['firstName'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="registerForm.controls['firstName'].errors?.['required']">
+          First Name is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="form-group mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input
+        type="text"
+        id="lastName"
+        class="form-control"
+        formControlName="lastName"
+        (blur)="registerForm.controls['lastName'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['lastName'].touched &&
+            registerForm.controls['lastName'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          registerForm.controls['lastName'].touched &&
+          registerForm.controls['lastName'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="registerForm.controls['lastName'].errors?.['required']">
+          Last Name is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Email (Optional)</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="email"
+        (blur)="registerForm.controls['email'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['email'].touched &&
+            registerForm.controls['email'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          registerForm.controls['email'].touched &&
+          registerForm.controls['email'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="registerForm.controls['email'].errors?.['email']">
+          Invalid email format.
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group mb-3">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input
+        type="text"
+        id="phone"
+        class="form-control"
+        formControlName="phone"
+        (blur)="registerForm.controls['phone'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['phone'].touched &&
+            registerForm.controls['phone'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          registerForm.controls['phone'].touched &&
+          registerForm.controls['phone'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="registerForm.controls['phone'].errors?.['required']">
+          Phone Number is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        formControlName="password"
+        (input)="onPasswordInput()"
+        (blur)="registerForm.controls['password'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['password'].touched &&
+            registerForm.controls['password'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          registerForm.controls['password'].touched &&
+          registerForm.controls['password'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="registerForm.controls['password'].errors?.['required']">
+          Password is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-group mb-3">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        class="form-control"
+        formControlName="confirmPassword"
+        (input)="onPasswordInput()"
+        (blur)="registerForm.controls['confirmPassword'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['confirmPassword'].touched &&
+            registerForm.controls['confirmPassword'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          registerForm.controls['confirmPassword'].touched &&
+          registerForm.controls['confirmPassword'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div
+          *ngIf="registerForm.controls['confirmPassword'].errors?.['required']"
+        >
+          Confirm Password is required.
+        </div>
+        <div
+          *ngIf="registerForm.controls['confirmPassword'].errors?.['passwordMismatch']"
+        >
+          Passwords do not match.
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms and Conditions -->
+    <div class="form-check mb-3">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="terms"
+        formControlName="terms"
+        (blur)="registerForm.controls['terms'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            registerForm.controls['terms'].touched &&
+            registerForm.controls['terms'].errors
+        }"
+      />
+      <label class="form-check-label" for="terms"
+        >Agree to terms and conditions</label
+      >
+      <div
+        *ngIf="
+          registerForm.controls['terms'].touched &&
+          registerForm.controls['terms'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="registerForm.controls['terms'].errors?.['required']">
+          You must agree to the terms.
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Button -->
+    <button
+      type="submit"
+      class="btn btn-primary btn-block"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
+  </form>
+</div>

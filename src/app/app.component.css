@@ -1,0 +1,15 @@
+/* Default content styling */
+.content {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Content when sidebar is collapsed */
+.content.expanded {
+  margin-left: 80px;
+}
+
+/* No margin when user is not logged in */
+.content.no-margin {
+  margin-left: 0;
+}

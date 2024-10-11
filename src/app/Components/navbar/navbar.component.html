@@ -1,0 +1,84 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2">
+      <img
+        src="assets/Image/awanStore-crop.png"
+        height="60"
+        alt="Awan Store Logo"
+        style="margin-top: -1px"
+      />
+    </a>
+
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      style="border: none"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/home'">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/about'">About Us</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <div class="d-flex align-items-center">
+        <ng-container *ngIf="!isLoggedIn">
+          <a
+            class="btn btn-link me-3"
+            style="text-decoration: none"
+            [routerLink]="'/login'"
+            role="button"
+          >
+            Login
+          </a>
+          <a
+            class="btn btn-primary me-3"
+            [routerLink]="'/register'"
+            role="button"
+          >
+            Register
+          </a>
+          <a
+            class="btn btn-dark"
+            href="tel:03222230809"
+            role="button"
+            style="color: white"
+          >
+            <i class="fas fa-phone"></i>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="isLoggedIn">
+          <h4 class="fs-5 me-3">Hi! {{ username }}</h4> <!-- Display username -->
+          <a
+            class="btn btn-outline-danger btn-sm me-3"
+            (click)="onLogout()"
+            role="button"
+          >
+            Logout
+          </a>
+        </ng-container>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

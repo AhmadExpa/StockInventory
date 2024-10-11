@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "product": "Product 1",
+    "price": 100,
+    "quantity": 50,
+    "checkinDate": "2024-10-05",
+    "checkoutDate": "2024-10-06"
+  }
+]

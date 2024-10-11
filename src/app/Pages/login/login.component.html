@@ -1,0 +1,88 @@
+<div class="auth-container">
+  <h2 class="text-center mb-4">Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <!-- Email Field -->
+    <div class="form-group mb-4">
+      <label for="loginEmail" class="form-label">Email</label>
+      <input
+        type="email"
+        id="loginEmail"
+        class="form-control"
+        formControlName="email"
+        (blur)="loginForm.controls['email'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            loginForm.controls['email'].touched &&
+            loginForm.controls['email'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          loginForm.controls['email'].touched &&
+          loginForm.controls['email'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="loginForm.controls['email'].errors?.['required']">
+          Email is required.
+        </div>
+        <div *ngIf="loginForm.controls['email'].errors?.['email']">
+          Invalid email format.
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Field -->
+    <div class="form-group mb-4">
+      <label for="loginPassword" class="form-label">Password</label>
+      <input
+        type="password"
+        id="loginPassword"
+        class="form-control"
+        formControlName="password"
+        (blur)="loginForm.controls['password'].markAsTouched()"
+        [ngClass]="{
+          'is-invalid':
+            loginForm.controls['password'].touched &&
+            loginForm.controls['password'].errors
+        }"
+      />
+      <div
+        *ngIf="
+          loginForm.controls['password'].touched &&
+          loginForm.controls['password'].errors
+        "
+        class="invalid-feedback"
+      >
+        <div *ngIf="loginForm.controls['password'].errors?.['required']">
+          Password is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message for Unauthorized Access -->
+    <div
+      class="alert alert-warning alert-dismissible fade show"
+      role="alert"
+      *ngIf="loginError"
+    >
+      <strong>Warning!</strong> <br />
+      {{ loginErrorMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="btn btn-primary btn-block mb-4"
+      [disabled]="loginForm.invalid"
+    >
+      Login
+    </button>
+  </form>
+</div>

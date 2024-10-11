@@ -1,0 +1,24 @@
+.about-header {
+  background-color: #cccbc7;
+  border-radius: 12px;
+  padding: 2rem 0;
+}
+.logo {
+  width: 150px;
+}
+.mission-section {
+  background-color: #f1f1f1;
+  padding: 3rem 0;
+}
+.team-member {
+  text-align: center;
+}
+.team-member img {
+  width: 100px;
+  border-radius: 50%;
+}
+.section-title {
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: bold;
+}
