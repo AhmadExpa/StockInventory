@@ -1,0 +1,313 @@
+<div class="container mt-5">
+  <!-- Create Product Form -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Create New Product</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <!-- Product Name -->
+          <div class="col-md-6 mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input
+              type="text"
+              id="productName"
+              formControlName="productName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmitted && f['productName'].errors
+              }"
+            />
+            <div
+              *ngIf="isSubmitted && f['productName'].errors"
+              class="invalid-feedback"
+            >
+              Product Name is required.
+            </div>
+          </div>
+          <!-- Retail Price -->
+          <div class="col-md-6 mb-3">
+            <label for="retailPrice" class="form-label">Retail Price</label>
+            <input
+              type="number"
+              id="retailPrice"
+              formControlName="retailPrice"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmitted && f['retailPrice'].errors
+              }"
+            />
+            <div
+              *ngIf="isSubmitted && f['retailPrice'].errors"
+              class="invalid-feedback"
+            >
+              Retail Price is required and must be a positive number.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Purchase Price -->
+          <div class="col-md-6 mb-3">
+            <label for="purchasePrice" class="form-label">Purchase Price</label>
+            <input
+              type="number"
+              id="purchasePrice"
+              formControlName="purchasePrice"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmitted && f['purchasePrice'].errors
+              }"
+            />
+            <div
+              *ngIf="isSubmitted && f['purchasePrice'].errors"
+              class="invalid-feedback"
+            >
+              Purchase Price is required and must be a positive number.
+            </div>
+          </div>
+          <!-- Quantity -->
+          <div class="col-md-6 mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              formControlName="quantity"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['quantity'].errors }"
+            />
+            <div
+              *ngIf="isSubmitted && f['quantity'].errors"
+              class="invalid-feedback"
+            >
+              Quantity is required and must be a non-negative number.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Discount -->
+          <div class="col-md-6 mb-3">
+            <label for="discount" class="form-label">Discount (%)</label>
+            <input
+              type="number"
+              id="discount"
+              formControlName="discount"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['discount'].errors }"
+            />
+            <div
+              *ngIf="isSubmitted && f['discount'].errors"
+              class="invalid-feedback"
+            >
+              Discount is required and must be between 0 and 100.
+            </div>
+          </div>
+          <!-- Free Piece -->
+          <div class="col-md-6 mb-3">
+            <label for="freePiece" class="form-label">Free Piece</label>
+            <input
+              type="number"
+              id="freePiece"
+              formControlName="freePiece"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': isSubmitted && f['freePiece'].errors }"
+            />
+            <div
+              *ngIf="isSubmitted && f['freePiece'].errors"
+              class="invalid-feedback"
+            >
+              Free Piece is required and must be a non-negative number.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Recent Check-In Date -->
+          <div class="col-md-6 mb-3">
+            <label for="recentCheckInDate" class="form-label"
+              >Recent Check-In Date</label
+            >
+            <input
+              type="date"
+              id="recentCheckInDate"
+              formControlName="recentCheckInDate"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmitted && f['recentCheckInDate'].errors
+              }"
+            />
+            <div
+              *ngIf="isSubmitted && f['recentCheckInDate'].errors"
+              class="invalid-feedback"
+            >
+              Recent Check-In Date is required.
+            </div>
+          </div>
+          <!-- Recent Check-Out Date -->
+          <div class="col-md-6 mb-3">
+            <label for="recentCheckOutDate" class="form-label"
+              >Recent Check-Out Date</label
+            >
+            <input
+              type="date"
+              id="recentCheckOutDate"
+              formControlName="recentCheckOutDate"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': isSubmitted && f['recentCheckOutDate'].errors
+              }"
+            />
+            <div
+              *ngIf="isSubmitted && f['recentCheckOutDate'].errors"
+              class="invalid-feedback"
+            >
+              Recent Check-Out Date is required.
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Product</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Product List Display -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Product List</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Icon</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let product of products">
+            <tr
+              (click)="toggleDetails(product._id)"
+              [class.table-active]="isDetailVisible(product._id)"
+            >
+              <!-- Product Icon -->
+              <td>
+                <img
+                  *ngIf="product.iconUrl; else placeholder"
+                  [src]="product.iconUrl"
+                  alt="{{ product.productName }} Icon"
+                  width="40"
+                  height="40"
+                />
+                <ng-template #placeholder>
+                  <div
+                    class="placeholder-icon bg-secondary text-white d-flex align-items-center justify-content-center"
+                    style="width: 40px; height: 40px"
+                  >
+                    <span>
+                      {{ product.productName.charAt(0).toUpperCase() }}
+                    </span>
+                  </div>
+                </ng-template>
+              </td>
+              <!-- Product Name -->
+              <td>
+                <span *ngIf="!isEditing(product._id)">
+                  {{ product.productName }}
+                </span>
+                <input
+                  *ngIf="isEditing(product._id)"
+                  type="text"
+                  [(ngModel)]="editableProduct.productName"
+                  class="form-control"
+                />
+              </td>
+              <!-- Quantity -->
+              <td>
+                <span *ngIf="!isEditing(product._id)">
+                  {{ product.quantity }}
+                </span>
+                <input
+                  *ngIf="isEditing(product._id)"
+                  type="number"
+                  [(ngModel)]="editableProduct.quantity"
+                  class="form-control"
+                />
+              </td>
+              <!-- Actions -->
+              <td>
+                <button
+                  *ngIf="!isEditing(product._id)"
+                  class="btn btn-sm btn-warning me-2"
+                  (click)="editProduct(product); $event.stopPropagation()"
+                >
+                  Edit
+                </button>
+                <button
+                  *ngIf="!isEditing(product._id)"
+                  class="btn btn-sm btn-danger"
+                  (click)="confirmDelete(product); $event.stopPropagation()"
+                >
+                  Delete
+                </button>
+                <button
+                  *ngIf="isEditing(product._id)"
+                  class="btn btn-sm btn-success me-2"
+                  (click)="saveProduct(product._id); $event.stopPropagation()"
+                >
+                  Save
+                </button>
+                <button
+                  *ngIf="isEditing(product._id)"
+                  class="btn btn-sm btn-secondary"
+                  (click)="discardChanges(); $event.stopPropagation()"
+                >
+                  Discard
+                </button>
+              </td>
+            </tr>
+            <!-- Expanded Details -->
+            <tr *ngIf="isDetailVisible(product._id)">
+              <td colspan="4">
+                <div class="row">
+                  <!-- Free Piece -->
+                  <div class="col-md-3">
+                    <strong>Free Piece:</strong> {{ product.freePieces }}
+                  </div>
+                  <!-- Pricing -->
+                  <div class="col-md-3">
+                    <strong>Retail Price:</strong>
+                    {{ product.retailPrice | currency }}
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Purchase Price:</strong>
+                    {{ product.purchasePrice | currency }}
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Discount:</strong> {{ product.discount }}%
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <!-- Recent Check-In Date -->
+                  <div class="col-md-6">
+                    <strong>Recent Check-In Date:</strong>
+                    {{ product.recentCheckInDate | date }}
+                  </div>
+                  <!-- Recent Check-Out Date -->
+                  <div class="col-md-6">
+                    <strong>Recent Check-Out Date:</strong>
+                    {{ product.recentCheckOutDate | date }}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <!-- No Products Message -->
+      <div *ngIf="products.length === 0" class="text-center">
+        <p>No products available. Please add a new product.</p>
+      </div>
+    </div>
+  </div>
+</div>
