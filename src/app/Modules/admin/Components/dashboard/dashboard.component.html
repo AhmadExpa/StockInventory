@@ -272,31 +272,91 @@
                 <div class="row">
                   <!-- Free Piece -->
                   <div class="col-md-3">
-                    <strong>Free Piece:</strong> {{ product.freePieces }}
+                    <span *ngIf="!isEditing(product._id)">
+                      <strong>Free Piece:</strong>{{ product.freePieces }}</span
+                    >
+
+                    <input
+                      *ngIf="isEditing(product._id)"
+                      type="number"
+                      [(ngModel)]="editableProduct.freePieces"
+                      class="form-control"
+                      placeholder="Free Piece"
+                    />
                   </div>
                   <!-- Pricing -->
                   <div class="col-md-3">
-                    <strong>Retail Price:</strong>
-                    {{ product.retailPrice | currency }}
+                    <span *ngIf="!isEditing(product._id)">
+                      <strong>Retail Price:</strong
+                      >{{ product.retailPrice | currency }}</span
+                    >
+
+                    <input
+                      *ngIf="isEditing(product._id)"
+                      type="number"
+                      [(ngModel)]="editableProduct.retailPrice"
+                      class="form-control"
+                      placeholder="Retail Price"
+                    />
                   </div>
                   <div class="col-md-3">
-                    <strong>Purchase Price:</strong>
-                    {{ product.purchasePrice | currency }}
+                    <span *ngIf="!isEditing(product._id)">
+                      <strong>Purchase Price:</strong
+                      >{{ product.purchasePrice | currency }}</span
+                    >
+
+                    <input
+                      *ngIf="isEditing(product._id)"
+                      type="number"
+                      [(ngModel)]="editableProduct.purchasePrice"
+                      class="form-control"
+                      placeholder="Purchase Price"
+                    />
                   </div>
                   <div class="col-md-3">
-                    <strong>Discount:</strong> {{ product.discount }}%
+                    <span *ngIf="!isEditing(product._id)">
+                      <strong>Discount:</strong>{{ product.discount }}%</span
+                    >
+
+                    <input
+                      *ngIf="isEditing(product._id)"
+                      type="number"
+                      [(ngModel)]="editableProduct.discount"
+                      class="form-control"
+                      placeholder="Discount Price"
+                    />
                   </div>
                 </div>
                 <div class="row mt-2">
                   <!-- Recent Check-In Date -->
                   <div class="col-md-6">
-                    <strong>Recent Check-In Date:</strong>
-                    {{ product.recentCheckInDate | date }}
+                    <span *ngIf="!isEditing(product._id)">
+                      <strong>Recent Check-In Date:</strong
+                      >{{ product.recentCheckInDate | date }}</span
+                    >
+
+                    <input
+                      *ngIf="isEditing(product._id)"
+                      type="date"
+                      [(ngModel)]="editableProduct.recentCheckInDate"
+                      class="form-control"
+                      placeholder="Recent Check-In Date"
+                    />
                   </div>
                   <!-- Recent Check-Out Date -->
                   <div class="col-md-6">
-                    <strong>Recent Check-Out Date:</strong>
-                    {{ product.recentCheckOutDate | date }}
+                    <span *ngIf="!isEditing(product._id)">
+                      <strong>Recent Check-Out Date:</strong
+                      >{{ product.recentCheckOutDate | date }}</span
+                    >
+
+                    <input
+                      *ngIf="isEditing(product._id)"
+                      type="date"
+                      [(ngModel)]="editableProduct.recentCheckOutDate"
+                      class="form-control"
+                      placeholder="Recent Check-Out Date"
+                    />
                   </div>
                 </div>
               </td>

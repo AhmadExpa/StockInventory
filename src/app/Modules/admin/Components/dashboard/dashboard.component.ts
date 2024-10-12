@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit {
 
   editProduct(product: any) {
     this.editingProductId = product._id; // Track the editing product ID
+    this.toggleDetails(product._id);
     this.editableProduct = { ...product }; // Copy the product data to editableProduct
     this.productForm.patchValue(this.editableProduct); // Load product data into the form
   }

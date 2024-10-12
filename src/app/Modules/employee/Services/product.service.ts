@@ -22,7 +22,6 @@ export class ProductService {
     productId: string,
     updateData: {
       quantity?: number;
-      recentCheckInDate?: string;
       recentCheckOutDate?: string;
       freePieces?: number;
     }

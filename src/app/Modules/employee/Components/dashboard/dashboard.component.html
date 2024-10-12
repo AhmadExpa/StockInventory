@@ -11,71 +11,130 @@
         <thead class="thead-dark">
           <tr>
             <th>Product Icon</th>
-            <th>Product</th>
-            <th>Price</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <ng-container *ngFor="let product of products">
-            <tr (click)="toggleDetails(product)">
+            <!-- Product Row -->
+            <tr
+              (click)="toggleDetails(product)"
+              [attr.aria-expanded]="product.showDetails"
+              tabindex="0"
+            >
               <td>
-                <img
-                  [src]="product.icon"
-                  alt="{{ product.productName }}"
-                  class="product-icon"
-                />
+                <ng-container *ngIf="product.icon; else placeholderIcon">
+                  <img
+                    [src]="product.icon"
+                    alt="{{ product.productName }}"
+                    class="product-icon"
+                  />
+                </ng-container>
+                <ng-template #placeholderIcon>
+                  <div class="placeholder-icon">
+                    {{ product.productName.charAt(0).toUpperCase() }}
+                  </div>
+                </ng-template>
               </td>
               <td>{{ product.productName }}</td>
-              <td>
-                {{ product.retailPrice }}
-              </td>
+              <td>{{ product.quantity }}</td>
               <td>
                 <button
                   class="btn btn-sm btn-primary"
-                  (click)="editProduct(product)"
+                  (click)="editProduct(product, $event)"
+                  [disabled]="product.isEditing"
                 >
-                  {{ product.isEditing ? "Save" : "Edit" }}
+                  Edit
                 </button>
               </td>
             </tr>
-            <tr *ngIf="product.showDetails" class="product-details">
-              <td>
-                <ng-container *ngIf="!product.isEditing; else editQuantity">
-                  {{ product.quantity }}
-                </ng-container>
-                <ng-template #editQuantity>
-                  <input
-                    type="number"
-                    [(ngModel)]="product.quantity"
-                    class="form-control"
-                  />
-                </ng-template>
-              </td>
 
-              <td>
-                <ng-container *ngIf="!product.isEditing; else editCheckInDate">
-                  {{ product.recentCheckInDate | date }}
-                </ng-container>
-                <ng-template #editCheckInDate>
-                  <input
-                    type="datetime-local"
-                    [(ngModel)]="product.recentCheckInDate"
-                    class="form-control"
-                  />
-                </ng-template>
-              </td>
-              <td>
-                <ng-container *ngIf="!product.isEditing; else editCheckOutDate">
-                  {{ product.recentCheckOutDate | date }}
-                </ng-container>
-                <ng-template #editCheckOutDate>
-                  <input
-                    type="datetime-local"
-                    [(ngModel)]="product.recentCheckOutDate"
-                    class="form-control"
-                  />
-                </ng-template>
+            <!-- Expanded Product Details Row -->
+            <tr *ngIf="product.showDetails" class="product-details">
+              <td colspan="4">
+                <div class="row">
+                  <!-- Free Pieces -->
+                  <div class="col-md-3">
+                    <strong>Free Pieces:</strong> {{ product.freePieces }}
+                  </div>
+                  <!-- Retail Price -->
+                  <div class="col-md-3">
+                    <strong>Retail Price:</strong>
+                    {{ product.retailPrice | currency }}
+                  </div>
+                  <!-- Recent Check-In Date -->
+                  <div class="col-md-3">
+                    <strong>Recent Check-In Date:</strong>
+                    {{ product.recentCheckInDate | date }}
+                  </div>
+                  <!-- Recent Check-Out Date -->
+                  <div class="col-md-3">
+                    <strong>Recent Check-Out Date:</strong>
+                    <span *ngIf="!product.isEditing">{{
+                      product.recentCheckOutDate | date
+                    }}</span>
+                    <input
+                      *ngIf="product.isEditing"
+                      type="datetime-local"
+                      [(ngModel)]="product.recentCheckOutDate"
+                      class="form-control"
+                      aria-label="Edit Recent Check-Out Date"
+                    />
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <!-- Checkout Quantity -->
+                  <div class="col-md-3">
+                    <label for="checkoutQuantity-{{ product._id }}">
+                      <strong>Checkout Quantity:</strong>
+                    </label>
+                    <input
+                      id="checkoutQuantity-{{ product._id }}"
+                      type="number"
+                      [(ngModel)]="product.checkoutQuantity"
+                      class="form-control"
+                      [max]="10"
+                      [max]="product.quantity"
+                      [disabled]="!product.isEditing"
+                    />
+                  </div>
+                  <!-- Checkout Pieces -->
+                  <div class="col-md-3">
+                    <label for="checkoutPieces-{{ product._id }}">
+                      <strong>Checkout Pieces:</strong>
+                    </label>
+                    <input
+                      id="checkoutPieces-{{ product._id }}"
+                      type="number"
+                      [(ngModel)]="product.checkoutPieces"
+                      class="form-control"
+                      [max]="10"
+                      [max]="product.freePieces"
+                      [disabled]="!product.isEditing"
+                    />
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="row mt-3" *ngIf="product.isEditing">
+                  <div class="col-md-6">
+                    <button
+                      class="btn btn-success mr-2"
+                      (click)="saveProduct(product, $event)"
+                    >
+                      Save
+                    </button>
+                    <button
+                      class="btn btn-secondary"
+                      (click)="discardChanges(product, $event)"
+                    >
+                      Discard
+                    </button>
+                  </div>
+                </div>
               </td>
             </tr>
           </ng-container>
