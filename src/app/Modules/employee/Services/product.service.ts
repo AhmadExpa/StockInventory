@@ -22,7 +22,7 @@ export class ProductService {
     productId: string,
     updateData: {
       quantity?: number;
-      recentCheckOutDate?: string;
+      recentCheckOutDate: string;
       freePieces?: number;
     }
   ): Observable<any> {

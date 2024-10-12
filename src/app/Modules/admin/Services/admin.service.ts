@@ -47,8 +47,8 @@ export class AdminService {
       purchasePrice?: number;
       discount?: number;
       quantity?: number;
-      checkInDate?: string;
-      checkOutDate?: string;
+      recentCheckInDate?: string;
+      recentCheckOutDate: string;
       freePieces?: number;
     }
   ): Observable<any> {

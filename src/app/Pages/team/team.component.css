@@ -1,0 +1,43 @@
+.radius-15 {
+  border-radius: 15px;
+}
+
+.card {
+  box-shadow: 0 2px 6px rgba(218, 218, 253, 0.65),
+    0 2px 6px rgba(206, 206, 238, 0.54);
+  margin-bottom: 1.5rem;
+}
+
+.contacts-social .list-inline-item {
+  margin-right: 0.5rem;
+}
+
+.contacts-social a {
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.bg-primary {
+  background-color: #0d6efd !important;
+}
+
+.bg-info {
+  background-color: #0dcaf0 !important;
+}
+
+.bg-dark {
+  background-color: #212529 !important;
+}
+
+body {
+  background-color: #f7f7ff;
+}
+.contacts-social a {
+  text-decoration: none;
+}

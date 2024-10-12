@@ -7,6 +7,8 @@ import { AboutComponent } from './Pages/about/about.component';
 import { adminGuard } from './Guards/Admin.Guard/admin.guard';
 import { employeeGuard } from './Guards/Employee.Guard/employee.guard';
 import { userGuard } from './Guards/User.Guard/user.guard';
+import { ContactComponent } from './Pages/contact/contact.component';
+import { TeamComponent } from './Pages/team/team.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'team', component: TeamComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];
@@ -40,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

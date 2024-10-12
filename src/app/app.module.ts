@@ -12,6 +12,10 @@ import { RegisterComponent } from './Pages/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from './Components/side-bar/side-bar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ContactComponent } from './Pages/contact/contact.component';
+import { TeamComponent } from './Pages/team/team.component';
+import { Page404Component } from './Pages/page404/page404.component';
+import { PrivacyPolicyComponent } from './Pages/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     SideBarComponent,
+    ContactComponent,
+    TeamComponent,
+    Page404Component,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

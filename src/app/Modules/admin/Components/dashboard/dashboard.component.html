@@ -288,7 +288,7 @@
                   <div class="col-md-3">
                     <span *ngIf="!isEditing(product._id)">
                       <strong>Retail Price:</strong
-                      >{{ product.retailPrice | currency }}</span
+                      >{{ product.retailPrice | currency : "PKR" }}</span
                     >
 
                     <input
@@ -300,18 +300,10 @@
                     />
                   </div>
                   <div class="col-md-3">
-                    <span *ngIf="!isEditing(product._id)">
+                    <span>
                       <strong>Purchase Price:</strong
-                      >{{ product.purchasePrice | currency }}</span
+                      >{{ product.purchasePrice | currency : "PKR" }}</span
                     >
-
-                    <input
-                      *ngIf="isEditing(product._id)"
-                      type="number"
-                      [(ngModel)]="editableProduct.purchasePrice"
-                      class="form-control"
-                      placeholder="Purchase Price"
-                    />
                   </div>
                   <div class="col-md-3">
                     <span *ngIf="!isEditing(product._id)">

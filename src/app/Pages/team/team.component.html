@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
+    <div class="col" *ngFor="let contact of contacts">
+      <div class="card radius-15 text-center">
+        <div class="card-body">
+          <div class="p-4 border radius-15">
+            <img
+              [src]="contact.imgSrc"
+              width="110"
+              height="110"
+              class="rounded-circle shadow"
+              [alt]="contact.name"
+            />
+            <h5 class="mb-0 mt-4">{{ contact.name }}</h5>
+            <p class="mb-3">{{ contact.role }}</p>
+            <div class="list-inline contacts-social mt-3 mb-3">
+              <a
+                [href]="contact.facebookLink"
+                class="list-inline-item bg-primary text-white"
+                ><i class="fa fa-facebook"></i
+              ></a>
+              <a
+                [href]="contact.whatsappLink"
+                class="list-inline-item bg-success text-white"
+                ><i class="fa fa-whatsapp"></i
+              ></a>
+              <a
+                [href]="contact.linkedinLink"
+                class="list-inline-item bg-dark text-white"
+                ><i class="fa fa-linkedin"></i
+              ></a>
+            </div>
+            <a href="#" class="btn btn-outline-primary">Contact Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
-<div class="container-fluid" style="overflow: hidden;">
-  <!-- Sidebar -->
+<div class="container-fluid" style="overflow: hidden">
+  <!-- Sidebar (hidden on mobile, visible on large screens) -->
   <app-side-bar
+    class="d-none d-lg-block"
     (collapsed)="handleSidebarState($event)"
     *ngIf="isLoggedIn"
   ></app-side-bar>
@@ -9,13 +10,19 @@
   <div
     class="content"
     [class.expanded]="isCollapsed && isLoggedIn"
-    [ngClass]="{ 'no-margin': !isLoggedIn }"
+    [ngClass]="{
+      'no-margin': !isLoggedIn || isMobileScreen(),
+    }"
   >
-    <app-navbar></app-navbar>
+    <app-navbar
+      [username]="username"
+      [isLoggedIn]="isLoggedIn"
+      [role]="role"
+    ></app-navbar>
     <div class="container mt-4">
-      <h1>Welcome to the {{ title }}</h1>
+      <!-- <h1>Welcome to the {{ title }}</h1> -->
       <router-outlet></router-outlet>
     </div>
-    <app-footer></app-footer>
+    <app-footer [isMobileScreen]="isMobileScreen()"></app-footer>
   </div>
 </div>

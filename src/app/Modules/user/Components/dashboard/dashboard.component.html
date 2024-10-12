@@ -75,10 +75,22 @@
             <tr (click)="toggleDetails(product)">
               <td>
                 <img
-                  [src]="product.icon"
-                  alt="{{ product.productName }}"
-                  class="product-icon"
+                  *ngIf="product.iconUrl; else placeholder"
+                  [src]="product.iconUrl"
+                  alt="{{ product.productName }} Icon"
+                  width="40"
+                  height="40"
                 />
+                <ng-template #placeholder>
+                  <div
+                    class="placeholder-icon bg-secondary text-white d-flex align-items-center justify-content-center"
+                    style="width: 40px; height: 40px"
+                  >
+                    <span>
+                      {{ product.productName.charAt(0).toUpperCase() }}
+                    </span>
+                  </div>
+                </ng-template>
               </td>
               <td>{{ product.productName }}</td>
               <td>{{ product.quantity }}</td>

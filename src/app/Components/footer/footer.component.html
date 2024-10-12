@@ -1,7 +1,40 @@
-<!-- footer.component.html -->
-<footer class="footer bg-light text-center py-3">
-    <div class="container">
-      <span class="text-muted">© 2024 Stock Inventory System</span>
+<div class="footer">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-12 col-sm-12 col-xs-12">
+        <ng-container *ngIf="isMobileScreen">
+          <div class="footer_menu">
+            <ul>
+              <li><a [routerLink]="'home'">Home</a></li>
+              <li><a [routerLink]="'about'">About</a></li>
+              <li><a [routerLink]="'team'">Team</a></li>
+              <li><a [routerLink]="'contact'">Get In Touch</a></li>
+            </ul>
+          </div>
+        </ng-container>
+        <div class="footer_copyright">
+          <p>© 2024 AhmadExpa. All Rights Reserved.</p>
+        </div>
+        <div class="footer_profile">
+          <ul>
+            <li>
+              <a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-instagram"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-pinterest"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--- END COL -->
     </div>
-  </footer>
-  
+    <!--- END ROW -->
+  </div>
+  <!--- END CONTAINER -->
+</div>

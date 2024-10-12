@@ -15,6 +15,10 @@ export class DashboardComponent implements OnInit {
   editingProductId: string | null = null; // To track which product is being edited
   expandedProductId: string | null = null; // To track which product details are expanded
 
+  // Constants for tax rates
+  private readonly _WHT: number = 0.59; // Withholding Tax
+  private readonly _GST: number = 18; // Goods and Services Tax
+
   constructor(private formBuilder: FormBuilder, private productService: AdminService) {
     this.productForm = this.formBuilder.group({
       productName: ['', Validators.required],
@@ -22,7 +26,7 @@ export class DashboardComponent implements OnInit {
       purchasePrice: [null, [Validators.required, Validators.min(0)]],
       quantity: [null, [Validators.required, Validators.min(0)]],
       discount: [null, [Validators.min(0), Validators.max(100)]],
-      freePiece: [null, [Validators.required, Validators.min(0)]], // Changed to freePiece
+      freePiece: [null, [Validators.required, Validators.min(0)]],
       recentCheckInDate: ['', Validators.required],
       recentCheckOutDate: ['', Validators.required],
     });
@@ -45,12 +49,20 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    // Calculate total price based on purchase price, discount, GST, and WHT
+    const purchasePrice = this.productForm.value.purchasePrice / this.productForm.value.quantity;
+    const discount = this.productForm.value.discount || 0; // Use 0 if no discount is provided
+
+    const discountedPrice = this.calculateDiscountedPrice(purchasePrice, discount);
+    const totalAmount = this.calculateTotalAmount(discountedPrice);
+
+
     // Create a product object
     const product = {
       productName: this.productForm.value.productName,
       retailPrice: +this.productForm.value.retailPrice, // Convert to number
-      purchasePrice: +this.productForm.value.purchasePrice, // Convert to number
-      discount: this.productForm.value.discount !== null ? +this.productForm.value.discount : undefined, // Convert to number or undefined
+      purchasePrice: totalAmount, // Save the calculated total amount
+      discount: discount, // Save discount as number
       quantity: +this.productForm.value.quantity, // Convert to number
       freePieces: +this.productForm.value.freePiece, // Ensure it matches backend expectation
       recentCheckInDate: this.productForm.value.recentCheckInDate,
@@ -71,6 +83,18 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  private calculateDiscountedPrice(purchasePrice: number, discount: number): number {
+    return purchasePrice - (purchasePrice * discount) / 100;
+  }
+
+  private calculateTotalAmount(discountedPrice: number): number {
+    const gstAmount = (this._GST / 100) * discountedPrice;
+    console.log(gstAmount);
+    const whtAmount = (discountedPrice / 100) * this._WHT;
+    console.log(whtAmount);
+    return discountedPrice + gstAmount + whtAmount;
+  }
+
   loadProducts() {
     this.productService.getProducts().subscribe(
       (data: any[]) => {
@@ -86,7 +110,7 @@ export class DashboardComponent implements OnInit {
     this.editingProductId = product._id; // Track the editing product ID
     this.toggleDetails(product._id);
     this.editableProduct = { ...product }; // Copy the product data to editableProduct
-    this.productForm.patchValue(this.editableProduct); // Load product data into the form
+    // this.productForm.patchValue(this.editableProduct); // Load product data into the form
   }
 
   saveProduct(productId: string) {
@@ -94,6 +118,8 @@ export class DashboardComponent implements OnInit {
       productName: this.editableProduct.productName,
       quantity: this.editableProduct.quantity,
       freePieces: this.editableProduct.freePieces,
+      recentCheckInDate: this.editableProduct.recentCheckInDate,
+      recentCheckOutDate: this.editableProduct.recentCheckOutDate
     };
 
     this.productService.updateProduct(productId, updatedProduct).subscribe(

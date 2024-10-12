@@ -1,0 +1,108 @@
+.contact-area {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .contact {
+    margin-bottom: 60px;
+  }
+}
+
+.contact input,
+.contact textarea {
+  background: #f8f9fa; /* Bootstrap light background */
+  border-radius: 5px;
+  box-shadow: none;
+  color: #495057; /* Bootstrap text color */
+  font-size: 16px;
+  height: 60px;
+  padding: 15px;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease;
+  margin-bottom: 20px; /* Add margin for spacing */
+}
+
+.contact textarea {
+  height: auto;
+  padding: 15px;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+  background: #f8f9fa;
+  color: #495057;
+  outline: 2px solid var(--bs-primary); /* Bootstrap primary color */
+}
+
+.form-control::placeholder {
+  color: #6c757d; /* Bootstrap placeholder color */
+  opacity: 1;
+}
+
+.btn-contact-bg {
+  border-radius: 30px;
+  background-color: var(--bs-primary); /* Bootstrap primary color */
+  color: #fff;
+  padding: 15px 27px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn-contact-bg:hover {
+  background-color: var(--bs-dark); /* Bootstrap dark color */
+  color: #fff;
+}
+
+.single_address {
+  margin-bottom: 30px;
+  padding-left: 40px;
+}
+
+.single_address i {
+  background: #e6e6e6;
+  color: var(--bs-primary); /* Bootstrap primary color */
+  border-radius: 30px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  margin-right: 15px;
+  font-size: 22px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.single_address:hover i {
+  background: var(--bs-primary); /* Bootstrap primary color */
+  color: #fff;
+}
+
+.section-title h1 {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--bs-dark); /* Bootstrap dark color */
+}
+
+.section-title p {
+  color: #6c757d; /* Bootstrap muted color */
+  letter-spacing: 1px;
+  margin: auto;
+  width: 70%;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .contact {
+    max-width: 600px;
+    margin: auto;
+  }
+}

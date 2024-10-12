@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LoginService } from 'src/app/Services/Login.Service/login.service';
 
 @Component({
@@ -6,32 +6,11 @@ import { LoginService } from 'src/app/Services/Login.Service/login.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
-  isLoggedIn: boolean = false;
-  username: string = '';
-
+export class NavbarComponent {
+  @Input() isLoggedIn: boolean = false;
+  @Input() username: string = '';
+  @Input() role: string = '';
   constructor(private loginService: LoginService) { }
-
-  ngOnInit(): void {
-
-    this.loginService.getAuthStatusListener().subscribe((status) => {
-      this.isLoggedIn = status;
-
-
-      if (this.isLoggedIn) {
-        const user = this.loginService.getUserDataFromToken();
-
-        if (user) {
-          this.username = user.name;
-        } else {
-          this.username = '';
-        }
-      } else {
-        this.username = '';
-      }
-    });
-  }
-
   onLogout(): void {
     this.loginService.logout();
   }
