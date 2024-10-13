@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode'; // Import jwtDecode directly
+import { environmentProd } from 'src/environment/environment.prod';
 
 interface AuthResponseData {
   token: string;
@@ -18,6 +19,7 @@ interface UserDetails {
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
+  private readonly apiUrl = `${environmentProd.apiUrl}/api/auth`;
   private authStatusListener = new BehaviorSubject<boolean>(false);
   private tokenExpirationTimer: any;
   private readonly TOKEN_KEY = 'authToken';
@@ -27,13 +29,13 @@ export class LoginService {
   }
 
   register(name: string, email: string, password: string): Observable<any> {
-    return this.http.post('/api/auth/register', { name, email, password }).pipe(
+    return this.http.post(`${this.apiUrl}/register`, { name, email, password }).pipe(
       catchError(this.handleError)
     );
   }
 
   login(email: string, password: string): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>('/api/auth/login', { email, password }).pipe(
+    return this.http.post<AuthResponseData>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response) => {
         this.handleAuthentication(response);
         this.redirectUserBasedOnRole();
@@ -73,7 +75,7 @@ export class LoginService {
     const token = localStorage.getItem(this.TOKEN_KEY);
     if (!token) throw new Error('No token found');
 
-    return this.http.post<UserDetails>('/api/auth/user-details', { authorization: token }).pipe(
+    return this.http.post<UserDetails>(`${this.apiUrl}/user-details`, { authorization: token }).pipe(
       catchError(this.handleError)
     );
   }
@@ -92,7 +94,7 @@ export class LoginService {
       };
       return userDetails;
     } catch {
-      this.logout(); 
+      this.logout();
       return null;
     }
   }

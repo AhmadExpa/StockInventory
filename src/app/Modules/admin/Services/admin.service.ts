@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environmentProd } from 'src/environment/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = '/api/products'; // Adjust the API endpoint if needed
+  private apiUrl = `${environmentProd.apiUrl}/api/products`; // Adjust the API endpoint if needed
 
   constructor(private http: HttpClient) { }
 

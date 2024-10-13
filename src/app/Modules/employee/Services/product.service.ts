@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environmentProd } from 'src/environment/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = '/api/products'; // Replace with your actual API endpoint
+  private apiUrl = `${environmentProd.apiUrl}/api/products`; // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) { }
 
