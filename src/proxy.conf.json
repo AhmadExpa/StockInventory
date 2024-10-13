@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://backend-inventory-cl3bq85lz-ahmad-ashfaqs-projects.vercel.app",
+    "target": "https://backend-inventory-three.vercel.app",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
