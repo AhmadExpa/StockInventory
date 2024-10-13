@@ -56,8 +56,7 @@
               "browserTarget": "StockInventory:build:production"
             },
             "development": {
-              "browserTarget": "StockInventory:build:development",
-              "proxyConfig": "src/proxy.conf.json"
+              "browserTarget": "StockInventory:build:development"
             }
           },
           "defaultConfiguration": "development"
