@@ -11,6 +11,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginError: boolean = false;
   loginErrorMessage: string = '';
+  loading: boolean = false; // New loading property
 
   constructor(
     private fb: FormBuilder,
@@ -24,11 +25,14 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.loading = true; // Start loading
       this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
         next: () => {
+          this.loading = false; // Stop loading on success
           this.loginError = false;
         },
         error: (error) => {
+          this.loading = false; // Stop loading on error
           this.loginError = true;
           this.loginErrorMessage = error.error?.message || 'Login failed. Please try again.';
         },

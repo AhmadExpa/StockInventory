@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
       quantity: [null, [Validators.required, Validators.min(0)]],
       discount: [null, [Validators.min(0), Validators.max(100)]],
       freePiece: [null, [Validators.required, Validators.min(0)]],
+      piece: [null, [Validators.required, Validators.min(0)]],
       recentCheckInDate: ['', Validators.required],
       recentCheckOutDate: ['', Validators.required],
     });
@@ -64,6 +65,7 @@ export class DashboardComponent implements OnInit {
       purchasePrice: totalAmount, // Save the calculated total amount
       discount: discount, // Save discount as number
       quantity: +this.productForm.value.quantity, // Convert to number
+      piece: +this.productForm.value.piece, // Convert to number
       freePieces: +this.productForm.value.freePiece, // Ensure it matches backend expectation
       recentCheckInDate: this.productForm.value.recentCheckInDate,
       recentCheckOutDate: this.productForm.value.recentCheckOutDate,
@@ -117,6 +119,7 @@ export class DashboardComponent implements OnInit {
     const updatedProduct = {
       productName: this.editableProduct.productName,
       quantity: this.editableProduct.quantity,
+      piece: this.editableProduct.piece,
       freePieces: this.editableProduct.freePieces,
       recentCheckInDate: this.editableProduct.recentCheckInDate,
       recentCheckOutDate: this.editableProduct.recentCheckOutDate

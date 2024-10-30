@@ -27,6 +27,7 @@ export class AdminService {
     purchasePrice: number;
     discount?: number;
     quantity: number;
+    piece: number;
     recentCheckInDate: string;
     recentCheckOutDate: string;
     freePieces?: number;
@@ -43,12 +44,13 @@ export class AdminService {
   updateProduct(
     productId: string,
     updatedData: {
-      productName?: string;
+      productName: string;
       retailPrice?: number;
       purchasePrice?: number;
       discount?: number;
       quantity?: number;
-      recentCheckInDate?: string;
+      piece: number;
+      recentCheckInDate: string;
       recentCheckOutDate: string;
       freePieces?: number;
     }

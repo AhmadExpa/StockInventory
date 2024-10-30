@@ -80,8 +80,12 @@
     <button
       type="submit"
       class="btn btn-primary btn-block mb-4"
-      [disabled]="loginForm.invalid"
+      [disabled]="loginForm.invalid || loading"
     >
+      <span
+        *ngIf="loading"
+        class="spinner-border spinner-border-sm me-2"
+      ></span>
       Login
     </button>
   </form>

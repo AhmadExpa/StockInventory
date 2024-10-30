@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/Services/Login.Service/login.service';
 export class RegisterComponent {
   registerForm: FormGroup;
   submitted = false;
+  loading = false; // Add loading flag for spinner and button disabling
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) {
     this.registerForm = this.formBuilder.group(
@@ -32,9 +33,7 @@ export class RegisterComponent {
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
-    return password &&
-      confirmPassword &&
-      password.value === confirmPassword.value
+    return password && confirmPassword && password.value === confirmPassword.value
       ? null
       : { passwordMismatch: true };
   }
@@ -42,22 +41,29 @@ export class RegisterComponent {
   onRegisterSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
+      this.loading = true; // Show loading spinner
       const data = this.registerForm.value;
       const name = data.firstName + ' ' + data.lastName;
       const email = data.email;
       const password = data.password;
-      this.loginService.register(name, email, password).subscribe((response) => {
-        console.log('Registration successful');
-        this.submitted = false;
-        this.registerForm.reset();
-      })
+      this.loginService.register(name, email, password).subscribe({
+        next: () => {
+          console.log('Registration successful');
+          this.submitted = false;
+          this.registerForm.reset();
+          this.loading = false; // Hide spinner after success
+        },
+        error: (error) => {
+          console.error('Registration failed', error);
+          this.loading = false; // Hide spinner after error
+        }
+      });
     }
   }
+
   onPasswordInput() {
     if (this.registerForm.hasError('passwordMismatch')) {
-      this.registerForm.controls['confirmPassword'].setErrors([
-        { passwordMismatch: true },
-      ]);
+      this.registerForm.controls['confirmPassword'].setErrors([{ passwordMismatch: true }]);
     } else {
       this.registerForm.controls['confirmPassword'].setErrors(null);
     }

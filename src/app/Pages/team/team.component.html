@@ -1,36 +1,83 @@
-<div class="container">
-  <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4">
-    <div class="col" *ngFor="let contact of contacts">
-      <div class="card radius-15 text-center">
-        <div class="card-body">
-          <div class="p-4 border radius-15">
-            <img
-              [src]="contact.imgSrc"
-              width="110"
-              height="110"
-              class="rounded-circle shadow"
-              [alt]="contact.name"
-            />
-            <h5 class="mb-0 mt-4">{{ contact.name }}</h5>
-            <p class="mb-3">{{ contact.role }}</p>
-            <div class="list-inline contacts-social mt-3 mb-3">
-              <a
-                [href]="contact.facebookLink"
-                class="list-inline-item bg-primary text-white"
-                ><i class="fa fa-facebook"></i
-              ></a>
-              <a
-                [href]="contact.whatsappLink"
-                class="list-inline-item bg-success text-white"
-                ><i class="fa fa-whatsapp"></i
-              ></a>
-              <a
-                [href]="contact.linkedinLink"
-                class="list-inline-item bg-dark text-white"
-                ><i class="fa fa-linkedin"></i
-              ></a>
-            </div>
-            <a href="#" class="btn btn-outline-primary">Contact Me</a>
+<div class="main-about-page-wrapper overflow-hidden">
+  <!-- First Container -->
+  <div
+    class="container first-container-wrapper justify-content-between ps-md-4 text-start"
+  >
+    <div class="row">
+      <div class="col-lg-6">
+        <h1>How did the <span>Awan Inventory</span> begin?</h1>
+      </div>
+      <div class="col-lg-6">
+        <p>
+          Through a combination of active participation, communication,
+          teamwork, and rapid growth. A dedication to transparency and agreement
+          with our chosen working style was easily incorporated into all of
+          this.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Container -->
+  <div class="second-container-wrapper text-start">
+    <h1>Everything revolves around the people.</h1>
+  </div>
+
+  <!-- Third Container -->
+  <div class="container mt-5 mb-5 third-container-wrapper">
+    <div class="row">
+      <div class="col-lg-6">
+        <p class="text-start">
+          Our growth has continued as a result of the process of integrating and
+          automating numerous tasks, creating effective workflows, creating
+          helpful templates, and exceeding our most ambitious expectations for
+          community expansion. The idea for the Humanoid CRM was developed
+          throughout the course of this transforming trip.
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <div class="image-wrapper">
+          <img
+            src=""
+            alt=""
+            class="img-fluid"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fourth Container - Our Mission -->
+  <div class="container fourth-container-wrapper py-5">
+    <div class="row">
+      <h1 class="text-center mb-4">Our Mission</h1>
+      <div class="col-lg-6">
+        <p>
+          While we absolutely love productivity software, we believe
+          productivity is broken. There’s too many tools to keep track of.
+          Eventually, our goal is to have all work live in one app to make
+          people more productive.
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <img
+          src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt=""
+          class="img-fluid"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Fifth Container - Our Core Beliefs -->
+  <div class="container fifth-container-wrapper py-5">
+    <div class="row">
+      <h1 class="text-center mb-3">OUR CORE BELIEFS</h1>
+      <div class="col-lg-4" *ngFor="let belief of coreBeliefs">
+        <div class="card">
+          <div class="card-body text-start px-3">
+            <h5 class="card-title mt-3">{{ belief.title }}</h5>
+            <p class="card-text">{{ belief.text }}</p>
           </div>
         </div>
       </div>

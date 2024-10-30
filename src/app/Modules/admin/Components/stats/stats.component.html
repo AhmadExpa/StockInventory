@@ -1,0 +1,37 @@
+<div class="stats-container">
+  
+  <h2>Product Statistics</h2>
+
+  <table class="stats-table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Total Sales</th>
+        <th>Quantity Sold</th>
+        <th>Average Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of productStats">
+        <td>{{ product.productName }}</td>
+        <td>{{ product.totalSales | currency }}</td>
+        <td>{{ product.quantitySold }}</td>
+        <td>{{ product.averagePrice | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <h2>Product Statistics</h2>
+    <canvas
+      baseChart
+      [datasets]="chartData"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="true"
+    >
+    </canvas>
+  </div>
+
+
+</div>

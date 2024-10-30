@@ -1,97 +1,191 @@
-<div id="contact" class="contact-area section-padding">
-  <div class="container">
-    <div class="section-title text-center mb-5">
-      <h1>Get in Touch</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae
-        risus nec dui venenatis dignissim. Aenean vitae metus in augue pretium
-        ultrices.
-      </p>
-    </div>
+<div class="contact-page">
+  <!-- Contact Heading Section -->
+  <section class="main-heading text-center">
+    <h1>We’re Here to Help</h1>
+    <p>Get in touch with our team for any inquiries or assistance.</p>
+  </section>
+
+  <!-- Contact Card Section -->
+  <section class="contact-options container">
     <div class="row">
-      <div class="col-lg-7">
-        <div class="contact">
-          <form
-            class="form"
-            name="enq"
-            method="post"
-            action="#"
-            onsubmit="return validation();"
-          >
-            <div class="row">
-              <div class="form-group col-md-6">
+      <div class="col-md-4">
+        <div class="card contact-card">
+          <div class="card-body">
+            <h5>Contact Support</h5>
+            <a href="#" class="learn-more"
+              >Learn More <i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card contact-card">
+          <div class="card-body">
+            <h5>Sales Department</h5>
+            <a href="#" class="learn-more"
+              >Learn More <i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card contact-card">
+          <div class="card-body">
+            <h5>Help Center</h5>
+            <a href="#" class="learn-more"
+              >Learn More <i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-form-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="contact-form">
+            <h3>Send Us a Message</h3>
+            <form (ngSubmit)="submitContactForm()" [formGroup]="contactForm">
+              <div class="form-group">
+                <label for="name">Name</label>
                 <input
                   type="text"
-                  name="name"
+                  id="name"
+                  formControlName="firstName"
+                  placeholder="Your Name"
                   class="form-control"
-                  placeholder="Name"
-                  required="required"
                 />
+                <div
+                  *ngIf="
+                    contactForm.controls['firstName'].invalid &&
+                    contactForm.controls['firstName'].touched
+                  "
+                  class="error"
+                >
+                  <small
+                    *ngIf="contactForm.controls['firstName'].errors?.['required']"
+                    >Name is required.</small
+                  >
+                  <small
+                    *ngIf="contactForm.controls['firstName'].errors?.['pattern']"
+                    >Only alphabets allowed.</small
+                  >
+                </div>
               </div>
-              <div class="form-group col-md-6">
+
+              <div class="form-group">
+                <label for="email">Email</label>
                 <input
                   type="email"
-                  name="email"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Your Email"
                   class="form-control"
-                  placeholder="Email"
-                  required="required"
                 />
+                <div
+                  *ngIf="
+                    contactForm.controls['email'].invalid &&
+                    contactForm.controls['email'].touched
+                  "
+                  class="error"
+                >
+                  <small
+                    *ngIf="contactForm.controls['email'].errors?.['required']"
+                    >Email is required.</small
+                  >
+                  <small *ngIf="contactForm.controls['email'].errors?.['email']"
+                    >Invalid email format.</small
+                  >
+                </div>
               </div>
-              <div class="form-group col-md-12">
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
                 <input
                   type="text"
-                  name="subject"
-                  class="form-control"
+                  id="subject"
+                  formControlName="Subject"
                   placeholder="Subject"
-                  required="required"
-                />
-              </div>
-              <div class="form-group col-md-12">
-                <textarea
-                  rows="6"
-                  name="message"
                   class="form-control"
-                  placeholder="Your Message"
-                  required="required"
-                ></textarea>
-              </div>
-              <div class="col-md-12 text-center">
-                <button
-                  type="submit"
-                  value="Send message"
-                  name="submit"
-                  id="submitButton"
-                  class="btn btn-contact-bg"
-                  title="Submit Your Message!"
+                />
+                <div
+                  *ngIf="
+                    contactForm.controls['Subject'].invalid &&
+                    contactForm.controls['Subject'].touched
+                  "
+                  class="error"
                 >
-                  Send Message
-                </button>
+                  <small
+                    *ngIf="contactForm.controls['Subject'].errors?.['required']"
+                    >Subject is required.</small
+                  >
+                  <small
+                    *ngIf="contactForm.controls['Subject'].errors?.['maxlength']"
+                    >Max 20 characters allowed.</small
+                  >
+                </div>
               </div>
-            </div>
-          </form>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  formControlName="message"
+                  placeholder="Your Message"
+                  class="form-control"
+                  rows="6"
+                ></textarea>
+                <div
+                  *ngIf="
+                    contactForm.controls['message'].invalid &&
+                    contactForm.controls['message'].touched
+                  "
+                  class="error"
+                >
+                  <small
+                    *ngIf="contactForm.controls['message'].errors?.['required']"
+                    >Message is required.</small
+                  >
+                  <small
+                    *ngIf="contactForm.controls['message'].errors?.['maxlength']"
+                    >Max 500 characters allowed.</small
+                  >
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn-submit"
+                [disabled]="contactForm.invalid"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-      <!--- END COL -->
-      <div class="col-lg-5">
-        <div class="single_address">
-          <i class="fa fa-map-marker"></i>
-          <h4>Our Address</h4>
-          <p>3481 Melrose Place, Beverly Hills</p>
-        </div>
-        <div class="single_address">
-          <i class="fa fa-envelope"></i>
-          <h4>Send your message</h4>
-          <p>Info&#64;example.com</p>
-        </div>
-        <div class="single_address">
-          <i class="fa fa-clock-o"></i>
-          <h4>Work Time</h4>
-          <p>Mon - Fri: 08.00 - 16.00. <br />Sat: 10.00 - 14.00</p>
-        </div>
-      </div>
-      <!--- END COL -->
     </div>
-    <!--- END ROW -->
-  </div>
-  <!--- END CONTAINER -->
+  </section>
+
+  <!-- Contact Info Section -->
+  <section class="contact-info">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+          <h3>Contact Us</h3>
+          <p>We're open to suggestions or just to have a chat.</p>
+          <ul class="contact-list">
+            <li>
+              <i class="fa fa-map-marker"></i> 123 Main Street, Anytown, USA
+            </li>
+            <li><i class="fa fa-phone"></i> +1 243 0000 87</li>
+            <li><i class="fa fa-envelope"></i> Dummy_&#64;hotmail.com</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

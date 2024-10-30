@@ -212,9 +212,10 @@
     <button
       type="submit"
       class="btn btn-primary btn-block"
-      [disabled]="registerForm.invalid"
+      [disabled]="registerForm.invalid || loading"
     >
-      Register
+      <span *ngIf="!loading">Register</span>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
     </button>
   </form>
 </div>

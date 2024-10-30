@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Contact } from './contact.interface';
 
 @Component({
   selector: 'app-team',
@@ -7,39 +6,30 @@ import { Contact } from './contact.interface';
   styleUrls: ['./team.component.css']
 })
 export class TeamComponent {
-  contacts: Contact[] = [
+  coreBeliefs = [
     {
-      name: 'Ahmad Ashfaq',
-      role: 'Software Engineer',
-      imgSrc: 'https://via.placeholder.com/110',
-      facebookLink: '#',
-      whatsappLink: '#',
-      linkedinLink: '#',
+      title: 'Striving for Excellence',
+      text: 'Excellence is the limitless capacity to raise the calibre of what you provide.'
     },
     {
-      name: 'Hamad Ashfaq',
-      role: 'Managing Head',
-      imgSrc: 'https://via.placeholder.com/110',
-      facebookLink: '#',
-      whatsappLink: '#',
-      linkedinLink: '#',
+      title: 'Your Financial Success',
+      text: 'We work relentlessly with you to identify ways to save money and ensure financial success.'
     },
     {
-      name: 'Abdul Wahid',
-      role: 'Marketing Head',
-      imgSrc: 'https://via.placeholder.com/110',
-      facebookLink: '#',
-      whatsappLink: '#',
-      linkedinLink: '#',
+      title: 'Combined Efforts to Achieve Excellence',
+      text: 'We strive for excellence and work with you to ensure business growth and success.'
     },
     {
-      name: 'Muhammad Ashfaq',
-      role: 'CEO & Founder',
-      imgSrc: 'https://via.placeholder.com/110',
-      facebookLink: '#',
-      whatsappLink: '#',
-      linkedinLink: '#',
+      title: 'Cost-effective Solutions',
+      text: 'We can guarantee tasks are completed while saving significant amounts of money.'
     },
-    // Add more contacts as needed (up to 20)
+    {
+      title: 'Expert Financial Solutions',
+      text: 'We always charge reasonable fees for the expert work we perform.'
+    },
+    {
+      title: 'Promoting Mutual Development',
+      text: 'By assisting clients in growing, we ensure mutual success and financial growth.'
+    }
   ];
 }
